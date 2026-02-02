@@ -2,6 +2,7 @@
   "name": "ai-study-planner",
   "version": "1.0.0",
   "description": "AI-powered study planning application",
+  "private": true,
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
@@ -9,14 +10,6 @@
     "frontend": "cd frontend && npm run dev",
     "build": "cd frontend && npm install && npm run build"
   },
-  "keywords": [
-    "study",
-    "planner",
-    "ai",
-    "scheduler"
-  ],
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
     "mongoose": "^7.0.0",

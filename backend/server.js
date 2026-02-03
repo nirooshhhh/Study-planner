@@ -13,22 +13,22 @@ connectDB();
 
 const app = express();
 
-/* ✅ CORS — FIXED */
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://study-planner-kohl.vercel.app",
-      "https://study-planner-8gqr-psb3qvva5-niroshs-projects-2be42e2f.vercel.app"
+      "http://localhost:3000",
+      "https://study-planner-8gqr-psb3qvva5-niroshs-projects-2be42e2f.vercel.app",
+      "https://study-planner-kohl.vercel.app"
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false,
   })
 );
 
 app.use(express.json());
 
-/* health check */
+// health check
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });

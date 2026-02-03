@@ -1,9 +1,10 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
+// attach token automatically
 API.interceptors.request.use((req) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -12,14 +13,19 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const loginUser = (data) =>
-  API.post("/auth/login", data);
-
+// AUTH ✅
 export const registerUser = (data) =>
-  API.post("/auth/register", data);
+  API.post("/api/auth/register", data);
 
+export const loginUser = (data) =>
+  API.post("/api/auth/login", data);
+
+// AI ✅ FIXED
 export const generateAIPlan = (topic, weeks) =>
-  API.post("/ai/plan", { topic, weeks });
+  API.post("/api/ai/plan", { topic, weeks });
 
+// CHAT ✅ FIXED
 export const sendChatMessage = (message) =>
-  API.post("/chat", { message });
+  API.post("/api/chat", { message });
+
+export default API;

@@ -13,26 +13,30 @@ connectDB();
 
 const app = express();
 
+/* 1️⃣ CORS middleware */
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "http://localhost:3000",
-      "https://study-planner-8gqr-psb3qvva5-niroshs-projects-2be42e2f.vercel.app",
-      "https://study-planner-kohl.vercel.app"
+      "https://study-planner-8gqr.vercel.app",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: false,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
+/* 2️⃣ THIS LINE GOES HERE 👇 */
+app.options("*", cors());
+
+/* 3️⃣ Body parser */
 app.use(express.json());
 
-// health check
+/* 4️⃣ Health check */
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
 
+/* 5️⃣ Routes */
 app.use("/api/auth", authRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/chat", chatRoutes);

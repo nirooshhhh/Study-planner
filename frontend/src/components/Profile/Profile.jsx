@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
-export default function Profile({ close }) {
+export default function Profile() {
   const navigate = useNavigate();
 
   const [name, setName] = useState(
@@ -25,13 +25,12 @@ export default function Profile({ close }) {
     document.body.classList.toggle("dark", newMode);
   };
 
-  // ✅ FIXED: clears ONLY todos
+  // ✅ IMPORTANT FIX
   const clearTodos = () => {
     localStorage.removeItem("todos");
-    alert("Todos cleared");
+    window.location.reload(); // force Todo to refresh
   };
 
-  // ✅ Logout works
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login");
@@ -53,7 +52,7 @@ export default function Profile({ close }) {
       </button>
 
       <button className="logout" onClick={handleLogout}>
-         Logout
+        Logout
       </button>
     </div>
   );

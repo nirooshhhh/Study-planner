@@ -86,3 +86,17 @@
   color: #6b7280;
   font-size: 14px;
 }
+
+.clear-btn {
+  margin: 10px 0;
+  padding: 8px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clear-btn:hover {
+  background: #e60000;
+}

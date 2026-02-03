@@ -5,15 +5,13 @@ export default function Todo() {
   const [task, setTask] = useState("");
   const [todos, setTodos] = useState([]);
 
-  /* Load todos from localStorage */
+  // Load todos
   useEffect(() => {
     const saved = localStorage.getItem("todos");
-    if (saved) {
-      setTodos(JSON.parse(saved));
-    }
+    if (saved) setTodos(JSON.parse(saved));
   }, []);
 
-  /* Save todos to localStorage */
+  // Save todos
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
@@ -45,9 +43,14 @@ export default function Todo() {
     setTodos(todos.filter((t) => t.id !== id));
   };
 
+  // Clear ALL todos
+  const clearTodos = () => {
+    setTodos([]);
+    localStorage.removeItem("todos");
+  };
+
   return (
     <div className="todo-container">
-      {/* INPUT */}
       <div className="todo-input-row">
         <input
           type="text"
@@ -59,7 +62,12 @@ export default function Todo() {
         <button onClick={addTodo}>Add</button>
       </div>
 
-      {/* LIST */}
+      {todos.length > 0 && (
+        <button className="clear-btn" onClick={clearTodos}>
+          Clear Todos
+        </button>
+      )}
+
       <ul className="todo-list">
         {todos.length === 0 && (
           <p className="todo-empty">No tasks yet</p>

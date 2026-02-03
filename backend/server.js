@@ -13,21 +13,32 @@ connectDB();
 
 const app = express();
 
+/**
+ * ✅ CORS FIX (VERY IMPORTANT)
+ */
 app.use(
   cors({
-    origin: "*",
+    origin: [
+      "http://localhost:5173",              // local frontend
+      "https://study-planner-kohl.vercel.app" // deployed frontend
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: false, // 👈 IMPORTANT (you use token, not cookies)
   })
 );
 
+// handle preflight explicitly
+app.options("*", cors());
+
 app.use(express.json());
 
-// health check (IMPORTANT for Render)
+// health check
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
 
+// routes
 app.use("/api/auth", authRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/chat", chatRoutes);
